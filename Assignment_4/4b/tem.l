@@ -1,18 +1,17 @@
 %{
-#include<stdio.h>
-#include"y.tab.h"
-#include<string.h>
-int l;
+	#include<stdio.h>
+	#include"y.tab.h"
+	#include<string.h>
+	int l;
 %}
+
+
 %%
 
 
-[0-9]+  {
-    	yylval.dval = atof(yytext);              
-    	return NUMBER;
-	}
-[\t];
-\(\"[a-zA-Z]*\"\) {
+[0-9]+  			{ yylval.dval = atof(yytext); return NUMBER; }
+[\t]				;
+\(\"[a-zA-Z]*\"\)	{
 	       yylval.dval = strlen(yytext)-4;
 	       return NUMBER;
 	       }

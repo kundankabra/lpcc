@@ -1,35 +1,37 @@
 %{
+	#include <string.h>
+	enum {
+		  LOOKUP =0, 
+		  KEYWORD,
+		  IDENTIFIER,
+		  NUMBER,
+		  LOGICAL,
+		  ARITHMETIC,
+		  RELATIONAL,
+		  FORMAT,
+		  PUN
+	};
 
+	int state;
 
-enum {
-      LOOKUP =0, 
-      KEYWORD,
-      IDENTIFIER,
-      NUMBER,
-      LOGICAL,
-      ARITHMETIC,
-      RELATIONAL,
-      FORMAT,
-      PUN
-};
-
-int state;
-
-int add_word(int type, char *word);
-int lookup_word(char *word);
+	int add_word(int type, char *word);
+	int lookup_word(char *word);
 %}
 
-%%
-\n    { state = LOOKUP; } 
 
-^keyword { state = KEYWORD; }
-^identifier  { state = IDENTIFIER; }
-^number  { state = NUMBER; }
-^logical { state = LOGICAL; }
+%%
+
+
+\n			{ state = LOOKUP; } 
+
+^keyword	{ state = KEYWORD; }
+^identifier { state = IDENTIFIER; }
+^number  	{ state = NUMBER; }
+^logical 	{ state = LOGICAL; }
 ^arithmetic { state = ARITHMETIC; }
 ^relational { state = RELATIONAL; }
-^format { state = FORMAT; }
-^pun { state = PUN; }
+^format 	{ state = FORMAT; }
+^pun 		{ state = PUN; }
 
 
 [a-zA-Z0-9\.&&\|\|\+-\/%\*\<\>==\<=\>=%d%s%f%s\{\}\,\;\':\"\?\!()]+ {
@@ -37,7 +39,8 @@ int lookup_word(char *word);
            if(state != LOOKUP) {
                 
                 add_word(state, yytext);
-              } else {
+              } 
+              else {
                  switch(lookup_word(yytext)) {
                  case KEYWORD: printf("%s: keyword\n", yytext); break;
                  case IDENTIFIER: printf("%s: identifier\n", yytext); break;
@@ -51,13 +54,18 @@ int lookup_word(char *word);
                          printf("%s: don't recognize\n", yytext);
                          break;
                  }
-          }
+          	}
          }
 
 .    ;
 
+
 %%
 
+
+int yywrap() {
+	
+}
 
 int main()
 {
@@ -75,8 +83,7 @@ struct word *word_list;
 
 extern void *malloc() ;
 
-int
-add_word(int type, char *word)
+int add_word(int type, char *word)
 {
       struct word *wp;
 
@@ -99,8 +106,7 @@ add_word(int type, char *word)
       return 1;  
 }
 
-int
-lookup_word(char *word)
+int lookup_word(char *word)
 {
       struct word *wp = word_list;
 

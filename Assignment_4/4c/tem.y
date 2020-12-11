@@ -10,8 +10,6 @@
     double dval;
 }
 
-
- 
 %token <dval> NUMBER 
 %token SQRT;
 %token STR;
@@ -22,7 +20,10 @@
 %token TAN;
 %type <dval> E
 
+
 %%
+
+
 exp: E{
      printf("\nResult=%lf\n",$1);
      return 0;
@@ -36,13 +37,17 @@ E:SQRT'('NUMBER')' {$$ = sqrt($3);}
  |COS'('NUMBER')' {$$ = cos($3*(3.14159265/180));}
  |TAN'('NUMBER')' {$$ = tan($3*(3.14159265/180));}
  ;
+ 
+ 
 %%
+
 
 void main()
 {
-printf("\nEnter A Valid Function : ");
-yyparse();
+	printf("\nEnter A Valid Function : ");
+	yyparse();
 }
+
 int yyerror(char *errormsg)
 {
     fprintf(stderr, "%s\n", errormsg);
