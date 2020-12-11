@@ -1,5 +1,5 @@
 %{
-    #include<math.h>
+    #include<math.h>		//Run gcc with -lm flag
     #include<stdio.h>
     #include<string.h>
 %}
@@ -9,17 +9,15 @@
 {
     double dval;
 }
-
-
  
-%token <dval> NUMBER 
-%token SQRT;
-%token STR;
-%token LOG;
-%token POW;
-%token SIN;
-%token COS;
-%token TAN;
+%token <dval> NUMBER
+%token SQRT
+%token STR
+%token LOG
+%token POW
+%token SIN
+%token COS
+%token TAN
 %type <dval> E
 
 %%
